@@ -20,34 +20,34 @@ export interface Props {
 const { page, allTags } = Astro.props as Props;
 
 const meta = {
-	title: "Posts",
-	description: "A collection of posts by me for a starter Astro theme",
+	title: "博客",
+	description: "个人博客的博文",
 };
 
 const paginationProps = {
 	...(page.url.prev && {
 		prevUrl: {
 			url: page.url.prev,
-			text: `← Previous Posts`,
+			text: `← 旧的博文`,
 		},
 	}),
 	...(page.url.next && {
 		nextUrl: {
 			url: page.url.next,
-			text: `Next Posts →`,
+			text: `新的博文 →`,
 		},
 	}),
 };
 ---
 
 <PageLayout meta={meta}>
-	<h1 class="mb-6 title">Posts</h1>
+	<h1 class="mb-6 title">博客</h1>
 	<div class="grid gap-y-16 sm:grid-cols-[3fr_1fr] sm:gap-x-8">
 		<section aria-label="Blog post list">
-			<ul class="text-left space-y-8">
+			<ul class="space-y-8 text-left">
 				{
 					page.data.map((p) => (
-						<li class="flex flex-wrap items-center gap-x-2 [&_q]:w-full">
+						<li class="[&_q]:w-full flex flex-wrap items-center gap-x-2">
 							<BlogPostPreview post={p} as="h2" withDesc />
 						</li>
 					))
@@ -75,7 +75,7 @@ const paginationProps = {
 							<path d="M17.573 18.407l2.834 -2.834a2.025 2.025 0 0 0 0 -2.864l-7.117 -7.116" />
 							<path d="M6 9h-.01" />
 						</svg>
-						Tags
+						标签
 					</h2>
 					<ul class="flex flex-wrap gap-2 text-bgColor">
 						{allTags.map((tag) => (
@@ -96,7 +96,7 @@ const paginationProps = {
 							href="/tags"
 							aria-label="View all blog categories"
 						>
-							View all →
+							查看全部 →
 						</a>
 					</span>
 				</aside>

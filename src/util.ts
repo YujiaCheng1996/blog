@@ -51,7 +51,7 @@ export function elementHasClass(element: HTMLElement, className: string) {
 export function getLocaleTime(
 	date: number | Date,
 	options: Intl.DateTimeFormatOptions = {},
-	locale: string | string[] = "en-GB"
+	locale: string | string[] = "zh-Hans-CN"
 ) {
 	const formatOptions: Intl.DateTimeFormatOptions = {
 		day: "numeric",

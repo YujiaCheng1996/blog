@@ -1,9 +1,9 @@
 const siteMeta = {
-  title: "Astro Theme Cactus",
-  description: "An opinionated starter theme for Astro",
-  lang: "en-GB",
-  ogLocale: "en_GB",
-  githubUrl: "https://github.com/chrismwilliams/astro-theme-cactus",
+  title: "个人博客",
+  description: "基于astro-theme-cactus的个人博客",
+  lang: "zh-cmn-Hans-CN",
+  ogLocale: "zh_CN",
+  githubUrl: "https://github.com/YujiaCheng1996/blog",
   themeColorLight: "#fafafa",
   themeColorDark: "#1d1f21",
 }
