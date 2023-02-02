@@ -1,23 +1,25 @@
 ---
+import type { Page, GetStaticPathsOptions } from "astro";
+import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
 import PageLayout from "@/layouts/Base";
-import BlogPostPreview from "@/components/BlogPostPreview";
+import PostPreview from "@/components/blog/PostPreview";
 import Pagination from "@/components/Paginator";
-import { getAllTags, sortMDByDate } from "src/util";
-import type { Post, Page, MDXInstance } from "@/types";
+import { getUniqueTags, sortMDByDate } from "@/utils";
 
-export async function getStaticPaths({ paginate }) {
-	const allPosts = await Astro.glob<Post>("./*.mdx");
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+	const allPosts = await getCollection("post");
 	const allPostsByDate = sortMDByDate(allPosts);
-	const allTags = getAllTags(allPosts);
-	return paginate(allPostsByDate, { props: { allTags }, pageSize: 10 });
+	const uniqueTags = getUniqueTags(allPosts);
+	return paginate(allPostsByDate, { props: { uniqueTags }, pageSize: 10 });
 }
 
-export interface Props {
-	page: Page<MDXInstance<Post>>;
-	allTags: string[];
+interface Props {
+	page: Page<CollectionEntry<"post">>;
+	uniqueTags: string[];
 }
 
-const { page, allTags } = Astro.props as Props;
+const { page, uniqueTags } = Astro.props;
 
 const meta = {
 	title: "博客",
@@ -47,8 +49,8 @@ const paginationProps = {
 			<ul class="space-y-8 text-left">
 				{
 					page.data.map((p) => (
-						<li class="[&_q]:w-full flex flex-wrap items-center gap-x-2">
-							<BlogPostPreview post={p} as="h2" withDesc />
+						<li class="[&_q]:w-full flex flex-col flex-wrap gap-x-2 sm:flex-row">
+							<PostPreview post={p} as="h2" withDesc />
 						</li>
 					))
 				}
@@ -56,7 +58,7 @@ const paginationProps = {
 			<Pagination {...paginationProps} />
 		</section>
 		{
-			allTags.length && (
+			uniqueTags.length && (
 				<aside>
 					<h2 class="flex items-center mb-4 text-lg font-semibold">
 						<svg
@@ -78,7 +80,7 @@ const paginationProps = {
 						标签
 					</h2>
 					<ul class="flex flex-wrap gap-2 text-bgColor">
-						{allTags.map((tag) => (
+						{uniqueTags.map((tag) => (
 							<li>
 								<a
 									class="flex items-center justify-center p-1 rounded-lg bg-accent"
@@ -91,11 +93,7 @@ const paginationProps = {
 						))}
 					</ul>
 					<span class="block mt-4 sm:text-right">
-						<a
-							class="sm:hover:text-accent"
-							href="/tags"
-							aria-label="View all blog categories"
-						>
+						<a class="sm:hover:text-accent" href="/tags" aria-label="View all blog categories">
 							查看全部 →
 						</a>
 					</span>

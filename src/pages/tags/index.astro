@@ -1,10 +1,10 @@
 ---
 import PageLayout from "@/layouts/Base";
-import { getAllTagsWithCount } from "@/util";
-import type { Post } from "@/types";
+import { getUniqueTagsWithCount } from "@/utils";
+import { getCollection } from "astro:content";
 
-const allPosts = await Astro.glob<Post>("../posts/*.mdx");
-const allTags = getAllTagsWithCount(allPosts);
+const allPosts = await getCollection("post");
+const allTags = getUniqueTagsWithCount(allPosts);
 
 const meta = {
 	title: "全部标签",
@@ -16,16 +16,17 @@ const meta = {
 	<h1 class="mb-6 title">标签</h1>
 	<ul class="space-y-4">
 		{
-			Object.keys(allTags).map((tag) => (
+			Object.entries(allTags).map(([tag, val]) => (
 				<li class="flex items-center gap-x-2">
 					<a
 						class="inline-block cactus-link"
 						href={`/tags/${tag}`}
 						title={`View posts with the tag: ${tag}`}
+						rel="prefetch"
 					>
 						&#35;{tag}
 					</a>
-					<span class="inline-block">- {allTags[tag]}篇</span>
+					<span class="inline-block">- {val} 篇</span>
 				</li>
 			))
 		}
