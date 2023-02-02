@@ -21,7 +21,7 @@ const postDate = getFormattedDate(content.data.publishDate);
 				aria-hidden="true"
 				focusable="false"
 				xmlns="http://www.w3.org/2000/svg"
-				class="inline-block h-6 w-6"
+				class="inline-block w-6 h-6"
 				viewBox="0 0 24 24"
 				stroke-width="1.5"
 				stroke="currentColor"
@@ -38,7 +38,7 @@ const postDate = getFormattedDate(content.data.publishDate);
 				<>
 					<a
 						class="cactus-link inline-block before:content-['#']"
-						aria-label={`View more blogs with the tag ${tag}`}
+						aria-label={`查看更多包含 ${tag} 的博客`}
 						href={`/tags/${tag}`}
 					>
 						{tag}
