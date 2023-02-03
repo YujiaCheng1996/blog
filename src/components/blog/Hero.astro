@@ -40,9 +40,7 @@ const postDate = getFormattedDate(content.data.publishDate);
 						class="cactus-link inline-block before:content-['#']"
 						aria-label={`查看更多包含 ${tag} 的博客`}
 						href={`/tags/${tag}`}
-					>
-						{tag}
-					</a>
+					>{tag}</a>
 					{i < content.data.tags.length - 1 && ", "}
 				</>
 			))}
