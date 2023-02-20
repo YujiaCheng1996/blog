@@ -1,22 +1,8 @@
 ---
 import ThemeToggle from "../ThemeToggle.astro";
+import { MENU_LINKS } from "@/data/constants";
 
 const url = new URL(Astro.request.url);
-
-const menuLinks = [
-	{
-		title: "首页",
-		path: "/",
-	},
-	{
-		title: "关于",
-		path: "/about",
-	},
-	{
-		title: "博客",
-		path: "/posts",
-	},
-];
 ---
 
 <script>
@@ -35,7 +21,7 @@ const menuLinks = [
 	});
 </script>
 
-<header id="main-header" class="relative flex items-center group mb-28">
+<header id="main-header" class="group relative mb-28 flex items-center">
 	<div class="flex sm:flex-col">
 		<a
 			href="/"
@@ -50,7 +36,7 @@ const menuLinks = [
 			aria-label="Main menu"
 		>
 			{
-				menuLinks.map((link) => (
+				MENU_LINKS.map((link) => (
 					<a
 						href={link.path}
 						class="px-4 py-4 sm:py-0 sm:hover:underline"
@@ -66,7 +52,7 @@ const menuLinks = [
 	<ThemeToggle />
 	<button
 		id="toggle-navigation-menu"
-		class="relative ml-8 group h-7 w-7 sm:invisible sm:hidden"
+		class="group relative ml-8 h-7 w-7 sm:invisible sm:hidden"
 		type="button"
 		aria-label="Open main menu"
 		aria-expanded="false"
@@ -74,7 +60,7 @@ const menuLinks = [
 	>
 		<svg
 			id="line-svg"
-			class="absolute w-full h-full transition-all -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 group-aria-expanded:scale-0 group-aria-expanded:opacity-0"
+			class="absolute top-1/2 left-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 transition-all group-aria-expanded:scale-0 group-aria-expanded:opacity-0"
 			aria-hidden="true"
 			focusable="false"
 			xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +73,7 @@ const menuLinks = [
 		</svg>
 		<svg
 			id="cross-svg"
-			class="absolute w-full h-full transition-all scale-0 -translate-x-1/2 -translate-y-1/2 opacity-0 top-1/2 left-1/2 text-accent group-aria-expanded:scale-100 group-aria-expanded:opacity-100"
+			class="absolute top-1/2 left-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 scale-0 text-accent opacity-0 transition-all group-aria-expanded:scale-100 group-aria-expanded:opacity-100"
 			class="text-accent"
 			aria-hidden="true"
 			focusable="false"
