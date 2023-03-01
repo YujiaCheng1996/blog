@@ -12,3 +12,11 @@ export const MENU_LINKS = [
 		path: "/posts",
 	},
 ];
+
+// ! Remember to add your own socials
+export const SOCIAL_LINKS = {
+	github: "https://github.com/YujiaCheng1996/blog",
+	twitter: "https://github.com/YujiaCheng1996/blog",
+	discord: "https://github.com/YujiaCheng1996/blog",
+	email: "cyj@programmer.net",
+};
