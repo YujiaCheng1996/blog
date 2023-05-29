@@ -46,10 +46,10 @@ const paginationProps = {
 	<h1 class="mb-6 title">博客</h1>
 	<div class="grid gap-y-16 sm:grid-cols-[3fr_1fr] sm:gap-x-8">
 		<section aria-label="Blog post list">
-			<ul class="space-y-8 text-left">
+			<ul class="space-y-8 text-start">
 				{
 					page.data.map((p) => (
-						<li class="[&_q]:w-full flex flex-col flex-wrap gap-x-2 sm:flex-row">
+						<li class="flex flex-col flex-wrap gap-2 sm:flex-row [&_q]:basis-full">
 							<PostPreview post={p} as="h2" withDesc />
 						</li>
 					))
@@ -84,7 +84,7 @@ const paginationProps = {
 							<li>
 								<a
 									class="flex items-center justify-center p-1 rounded-lg bg-accent"
-									href={`/tags/${tag}`}
+									href={`/tags/${tag}/`}
 									aria-label={`View all posts with the tag: ${tag}`}
 								>
 									{tag}
@@ -92,8 +92,8 @@ const paginationProps = {
 							</li>
 						))}
 					</ul>
-					<span class="block mt-4 sm:text-right">
-						<a class="sm:hover:text-accent" href="/tags" aria-label="View all blog categories">
+					<span class="block mt-4 sm:text-end">
+						<a class="sm:hover:text-accent" href="/tags/" aria-label="View all blog categories">
 							查看全部 →
 						</a>
 					</span>
