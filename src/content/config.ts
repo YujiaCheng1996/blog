@@ -9,12 +9,14 @@ function removeDupsAndLowerCase(array: string[]) {
 
 const post = defineCollection({
 	schema: z.object({
-		title: z.string().max(60),
-		description: z.string().min(50).max(160),
-		publishDate: z.string().transform((str) => new Date(str)),
-		tags: z.array(z.string()).default([]).transform(removeDupsAndLowerCase),
-		ogImage: z.string().optional(),
+		title: z.string().max(50).optional(),
+		description: z.string().max(150).optional(),
+		publishDate: z
+			.string()
+			.transform((str) => new Date(str))
+			.optional(),
+		tags: z.array(z.string()).default([]).transform(removeDupsAndLowerCase).optional(),
 	}),
 });
 
-export const collections = { post };
+export const collections = { post, post2: post };

@@ -3,18 +3,15 @@ import type { CollectionEntry } from "astro:content";
 
 import BaseLayout from "./Base.astro";
 import BlogHero from "@/components/blog/Hero";
+import { getTitle, getDescription } from "@/utils";
 
 interface Props {
 	post: CollectionEntry<"post">;
 }
 
 const { post } = Astro.props;
-const {
-	data: { title, description, ogImage, publishDate },
-	slug,
-} = post;
-const socialImage = ogImage ?? `/og-image/${slug}.png`;
-const articleDate = publishDate.toISOString();
+const { data, body, slug } = post;
+const articleDate = (data.publishDate ?? new Date()).toISOString();
 const { headings } = await post.render();
 ---
 
@@ -37,11 +34,17 @@ const { headings } = await post.render();
 	observer.observe(targetHeader);
 </script>
 
-<BaseLayout meta={{ title, description, articleDate, ogImage: socialImage }}>
+<BaseLayout
+	meta={{
+		title: data.title ?? getTitle(body),
+		description: data.description ?? getDescription(body),
+		articleDate,
+	}}
+>
 	<div class="gap-x-10 lg:flex lg:items-start">
 		{
 			!!headings.length && (
-				<aside class="sticky order-2 hidden top-20 -me-32 basis-64 lg:block">
+				<aside class="sticky top-20 order-2 -me-32 hidden basis-64 lg:block">
 					<h2 class="font-semibold">章节</h2>
 					<ul class="mt-4 text-xs">
 						{headings.map(({ depth, slug, text }) => (
@@ -81,7 +84,7 @@ const { headings } = await post.render();
 			viewBox="0 0 24 24"
 			stroke-width="2"
 			stroke="currentColor"
-			class="w-6 h-6"
+			class="h-6 w-6"
 		>
 			<path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5"></path>
 		</svg>

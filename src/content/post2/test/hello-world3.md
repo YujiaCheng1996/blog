@@ -1,11 +1,3 @@
----
-title: "Hello world!"
-//slug: "hello-world"
-publishDate: "2023-2-1"
-//description: "Hello world! Hello world! Hello world! Hello world!"
-tags: ["helloworld", "blog"]
----
-
 ## Hello World 1
 
 Hello world! Hello world! Hello world!

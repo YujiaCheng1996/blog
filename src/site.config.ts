@@ -13,7 +13,7 @@ interface SiteConfig {
 }
 
 export const siteConfig: SiteConfig = {
-	// Used as both a meta property (src/components/BaseHead.astro L:31 + L:49) & the generated satori png (src/pages/og-image/[slug].png.ts)
+	// Used as a meta property (src/components/BaseHead.astro L:31 + L:49)
 	author: "YujiaCheng1996",
 	// Meta property used to construct the meta title property, found in src/components/BaseHead.astro L:11
 	title: "个人博客",

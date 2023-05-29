@@ -1,5 +1,5 @@
 ---
-import { getFormattedDate } from "@/utils";
+import { getFormattedDate, getTitle, getDescription } from "@/utils";
 import type { CollectionEntry } from "astro:content";
 
 interface Props {
@@ -8,11 +8,11 @@ interface Props {
 
 const { content } = Astro.props;
 
-const datetime = content.data.publishDate.toISOString();
-const postDate = getFormattedDate(content.data.publishDate, { month: "long" });
+const datetime = (content.data.publishDate ?? new Date()).toISOString();
+const postDate = getFormattedDate(content.data.publishDate ?? new Date(), { month: "long" });
 ---
 
-<h1 class="title mb-3 sm:mb-1">{content.data.title}</h1>
+<h1 class="title mb-3 sm:mb-1">{content.data.title ?? getTitle(content.body)}</h1>
 <time datetime={datetime}>{postDate}</time>
 {
 	!!content.data.tags?.length && (
@@ -49,4 +49,4 @@ const postDate = getFormattedDate(content.data.publishDate, { month: "long" });
 		</div>
 	)
 }
-<p class="mt-8">{content.data.description}</p>
+<p class="mt-8">{content.data.description ?? getDescription(content.body)}</p>

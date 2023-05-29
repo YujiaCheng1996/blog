@@ -9,7 +9,7 @@ export const MENU_LINKS = [
 	},
 	{
 		title: "博客",
-		path: "/posts",
+		path: "/post",
 	},
 ];
 
