@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { getFormattedDate, getTitle, getDescription } from "@/utils";
 import type { CollectionEntry } from "astro:content";
 
@@ -12,16 +13,29 @@ const datetime = (content.data.publishDate ?? new Date()).toISOString();
 const postDate = getFormattedDate(content.data.publishDate ?? new Date(), { month: "long" });
 ---
 
+{
+	content.data.coverImage && (
+		<div class="aspect-h-9 aspect-w-16 mb-6">
+			<Image
+				src={content.data.coverImage.src}
+				alt={content.data.coverImage.alt}
+				class="object-cover"
+				loading="eager"
+				fetchpriority="high"
+			/>
+		</div>
+	)
+}
 <h1 class="title mb-3 sm:mb-1">{content.data.title ?? getTitle(content.body)}</h1>
 <time datetime={datetime}>{postDate}</time>
 {
 	!!content.data.tags?.length && (
-		<div class="mt-1 sm:mt-0 sm:inline sm:before:content-['|']">
+		<div class="mt-1 sm:mt-0 sm:inline sm:before:mx-2 sm:before:content-['|']">
 			<svg
 				aria-hidden="true"
 				focusable="false"
 				xmlns="http://www.w3.org/2000/svg"
-				class="inline-block h-6 w-6"
+				class="mr-1 inline-block h-6 w-6"
 				viewBox="0 0 24 24"
 				stroke-width="1.5"
 				stroke="currentColor"
