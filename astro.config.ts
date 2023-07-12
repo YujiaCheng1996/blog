@@ -3,11 +3,13 @@ import mdx from "@astrojs/mdx";
 import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
 import prefetch from "@astrojs/prefetch";
+import remarkUnwrapImages from "remark-unwrap-images";
 
 // https://astro.build/config
 export default defineConfig({
 	site: "https://blog.chengyujia.xyz",
 	markdown: {
+		remarkPlugins: [remarkUnwrapImages],
 		shikiConfig: {
 			theme: "dracula",
 			wrap: true,
