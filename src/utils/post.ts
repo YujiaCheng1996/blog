@@ -2,11 +2,11 @@ import type { CollectionEntry } from "astro:content";
 const currentDate = new Date();
 
 export function sortMDByDate(posts: CollectionEntry<"post">[] = []) {
-	return posts.sort(
-		(a, b) =>
-			new Date(b.data.publishDate ?? currentDate).valueOf() -
-			new Date(a.data.publishDate ?? currentDate).valueOf()
-	);
+	return posts.sort((a, b) => {
+		const aDate = new Date(a.data.updatedDate ?? a.data.publishDate ?? currentDate).valueOf();
+		const bDate = new Date(b.data.updatedDate ?? b.data.publishDate ?? currentDate).valueOf();
+		return bDate - aDate;
+	});
 }
 
 export function getUniqueTags(posts: CollectionEntry<"post">[] = []) {

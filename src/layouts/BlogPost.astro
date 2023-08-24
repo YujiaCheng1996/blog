@@ -10,8 +10,12 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { data, body, slug } = post;
-const articleDate = (data.publishDate ?? new Date()).toISOString();
+const {
+	data: { title, description, publishDate, updatedDate },
+	body,
+} = post;
+const articleDate =
+	updatedDate?.toISOString() ?? publishDate?.toISOString() ?? new Date().toISOString();
 const { headings } = await post.render();
 ---
 
@@ -36,8 +40,8 @@ const { headings } = await post.render();
 
 <BaseLayout
 	meta={{
-		title: data.title ?? getTitle(body),
-		description: data.description ?? getDescription(body),
+		title: title ?? getTitle(body),
+		description: description ?? getDescription(body),
 		articleDate,
 	}}
 >
