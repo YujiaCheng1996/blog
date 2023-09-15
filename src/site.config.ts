@@ -1,4 +1,4 @@
-import type { SiteConfig } from "@/data/types";
+import type { SiteConfig } from "@/types";
 
 export const siteConfig: SiteConfig = {
 	// Used as a meta property (src/components/BaseHead.astro L:31 + L:49)

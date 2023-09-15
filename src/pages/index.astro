@@ -1,17 +1,11 @@
 ---
-import { getCollection } from "astro:content";
 import PageLayout from "@/layouts/Base";
 import PostPreview from "@/components/blog/PostPreview";
-import { sortMDByDate } from "@/utils";
+import { getAllPosts, sortMDByDate } from "@/utils";
 
 const MAX_POSTS = 10;
-const allPosts = Object.entries({
-	post: await getCollection("post"),
-	post2: await getCollection("post2"),
-})
-	.map(([collection, posts]) => posts.map((post) => ({ ...post, collection })))
-	.flat();
-const allPostsByDate = sortMDByDate(allPosts!).slice(0, MAX_POSTS);
+const allPosts = await getAllPosts();
+const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS);
 
 const cactusTech: Array<{ title: string; desc: string; href: string }> = [
 	{
@@ -44,11 +38,11 @@ const cactusTech: Array<{ title: string; desc: string; href: string }> = [
 
 <PageLayout meta={{ title: "首页" }}>
 	<section>
-		<h1 class="mb-6 title">Hello World!</h1>
+		<h1 class="title mb-6">Hello World!</h1>
 		<p class="mb-4">Hello World! Hello World! Hello World!</p>
 	</section>
 	<section aria-label="Blog post list" class="mt-16">
-		<h2 class="mb-4 text-xl title">博文列表</h2>
+		<h2 class="title mb-4 text-xl">博文列表</h2>
 		<ul class="space-y-4 sm:space-y-2">
 			{
 				allPostsByDate.map((p) => (
@@ -60,7 +54,7 @@ const cactusTech: Array<{ title: string; desc: string; href: string }> = [
 		</ul>
 	</section>
 	<section class="mt-16">
-		<h2 class="mb-4 text-xl title">技术栈</h2>
+		<h2 class="title mb-4 text-xl">技术栈</h2>
 		<ul class="space-y-4 sm:space-y-2">
 			{
 				cactusTech.map(({ href, title, desc }) => (
@@ -69,7 +63,7 @@ const cactusTech: Array<{ title: string; desc: string; href: string }> = [
 							href={href}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="inline-block cactus-link"
+							class="cactus-link inline-block"
 						>
 							{title}
 						</a>

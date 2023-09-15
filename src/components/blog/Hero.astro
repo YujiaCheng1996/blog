@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import { getTitle, getDescription } from "@/utils";
+import { getTitle } from "@/utils";
 import type { CollectionEntry } from "astro:content";
 import FormattedDate from "../FormattedDate.astro";
 
@@ -21,7 +21,7 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 
 {
 	data.coverImage && (
-		<div class="mb-6 aspect-h-9 aspect-w-16">
+		<div class="aspect-h-9 aspect-w-16 mb-6">
 			<Image
 				src={data.coverImage.src}
 				alt={data.coverImage.alt}
@@ -32,7 +32,7 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 		</div>
 	)
 }
-<h1 class="mb-3 title sm:mb-1">{data.title ?? getTitle(body)}</h1>
+<h1 class="title mb-3 sm:mb-1">{data.title ?? getTitle(body)}</h1>
 <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
 	<p class="font-semibold">
 		<FormattedDate date={data.publishDate} dateTimeOptions={dateTimeOptions} /> /{" "}
@@ -40,7 +40,7 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 	</p>
 	{
 		data.updatedDate && (
-			<span class="p-1 rounded-lg bg-quote/10 text-quote">
+			<span class="rounded-lg bg-quote/10 p-1 text-quote">
 				上次更新:
 				<FormattedDate class="ms-1" date={data.updatedDate} dateTimeOptions={dateTimeOptions} />
 			</span>
@@ -54,7 +54,7 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 				aria-hidden="true"
 				focusable="false"
 				xmlns="http://www.w3.org/2000/svg"
-				class="inline-block w-6 h-6 me-1"
+				class="me-1 inline-block h-6 w-6"
 				viewBox="0 0 24 24"
 				stroke-width="1.5"
 				stroke="currentColor"
@@ -83,4 +83,3 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 		</div>
 	)
 }
-<p class="mt-12">{data.description ?? getDescription(body)}</p>

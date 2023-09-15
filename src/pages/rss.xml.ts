@@ -1,15 +1,9 @@
 import rss from "@astrojs/rss";
-import { getCollection } from "astro:content";
 import { siteConfig } from "@/site-config";
-import { getTitle, getDescription } from "@/utils";
+import { getAllPosts, getTitle, getDescription } from "@/utils";
 
-export const get = async () => {
-	const posts = Object.entries({
-		post: await getCollection("post"),
-		post2: await getCollection("post2"),
-	})
-		.map(([collection, posts]) => posts.map((post) => ({ ...post, collection })))
-		.flat();
+export const GET = async () => {
+	const posts = await getAllPosts();
 
 	return rss({
 		title: siteConfig.title,
