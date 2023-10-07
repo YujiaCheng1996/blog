@@ -17,22 +17,34 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <title>{siteTitle}</title>
 
-<!-- Icons / Favicon -->
+{/* Icons / Favicon */}
 <link rel="icon" href="/favicon.ico" sizes="any" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link rel="manifest" href="/manifest.webmanifest" />
 <link rel="canonical" href={canonicalURL} />
 
-<!-- Primary Meta Tags -->
+{/* Primary Meta Tags */}
 <meta name="title" content={siteTitle} />
 <meta name="description" content={description} />
 <meta name="author" content={siteConfig.author} />
 
-<!-- Theme Colour -->
+{/* Theme Colour */}
 <meta name="theme-color" content="" />
 
-<!-- Sitemap -->
+{/* Sitemap */}
 <link rel="sitemap" href="/sitemap-index.xml" />
 
-<!-- RSS auto-discovery -->
+{/* RSS auto-discovery */}
 <link rel="alternate" type="application/rss+xml" title={siteConfig.title} href="/rss.xml" />
+
+{/* Webmentions */}
+{
+	siteConfig.webmentions && (
+		<>
+			<link rel="webmention" href={siteConfig.webmentions.link} />
+			{siteConfig.webmentions.pingback && (
+				<link rel="pingback" href={siteConfig.webmentions.pingback} />
+			)}
+		</>
+	)
+}
