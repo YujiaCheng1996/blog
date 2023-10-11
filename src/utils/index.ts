@@ -1,5 +1,5 @@
 export { getFormattedDate } from "./date";
-export { elementHasClass, toggleClass } from "./domElement";
+export { elementHasClass, toggleClass, rootHasDarkClass } from "./domElement";
 export {
   getAllPosts,
   sortMDByDate,
