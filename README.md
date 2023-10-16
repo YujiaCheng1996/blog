@@ -1,11 +1,11 @@
 <div align="center">
-  <img alt="Astro Theme Cactus logo" src="https://github.com/chrismwilliams/astro-theme-cactus/assets/12715988/85aa0d3c-ef6a-44e2-954d-ef035b4f4315" width="70" />
+  <img alt="Astro Cactus logo" src="https://github.com/chrismwilliams/astro-theme-cactus/assets/12715988/85aa0d3c-ef6a-44e2-954d-ef035b4f4315" width="70" />
 </div>
 <h1 align="center">
-  Astro Theme Cactus
+  Astro Cactus
 </h1>
 
-Astro Theme Cactus is a simple opinionated starter built with the Astro framework. Use it to create an easy-to-use blog or website.
+Astro Cactus is a simple opinionated starter built with the Astro framework. Use it to create an easy-to-use blog or website.
 
 ## Table Of Contents
 
@@ -35,6 +35,7 @@ Astro Theme Cactus is a simple opinionated starter built with the Astro framewor
 - [Satori](https://github.com/vercel/satori) for creating open graph png images
 - Pagination
 - [Automatic RSS feed](https://docs.astro.build/en/guides/rss)
+- [Webmentions](https://webmention.io/)
 - Shiki code syntax styling
 - Auto-generated [sitemap](https://docs.astro.build/en/guides/integrations-guide/sitemap/)
 - [Pagefind](https://pagefind.app/) static search library integration
@@ -42,7 +43,7 @@ Astro Theme Cactus is a simple opinionated starter built with the Astro framewor
 
 ## Demo 💻
 
-Check out the [Demo](https://astro-theme-cactus.netlify.app/), hosted on Netlify
+Check out the [Demo](https://astro-cactus.chriswilliams.dev/), hosted on Netlify
 
 ## Quick start
 
@@ -72,6 +73,7 @@ Replace pnpm with your choice of npm / yarn
 ## Configure
 
 - Edit the config file `src/site.config.ts` for basic site meta data
+  - Read [this post](http://astro-cactus.chriswilliams.dev/posts/webmentions/) for adding webmentions to your site, otherwise set `siteConfig.webmentions.link` to empty value.
 - Update file `astro.config.ts` site property with your own domain
 - Replace & update files within the `/public` folder:
   - favicon.ico & other social icons
