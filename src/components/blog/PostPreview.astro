@@ -13,14 +13,14 @@ const { post, as: Tag = "div", withDesc = false } = Astro.props;
 const postDate = post.data.updatedDate ?? post.data.publishDate;
 ---
 
-<FormattedDate date={postDate} class="min-w-[120px] text-gray-500" />
+<FormattedDate date={postDate} class="min-w-[120px] text-gray-600 dark:text-gray-400" />
 <Tag>
-	<a href={`/${post.collection}/${post.slug}/`} class="cactus-link" rel="prefetch">
+	<a href={`/${post.collection}/${post.slug}/`} class="cactus-link" data-astro-prefetch>
 		{post.data.title ?? getTitle(post.body)}
 	</a>
 </Tag>
 {
 	withDesc && (
-		<q class="block italic line-clamp-3">{post.data.description ?? getDescription(post.body)}</q>
+		<q class="line-clamp-3 block italic">{post.data.description ?? getDescription(post.body)}</q>
 	)
 }

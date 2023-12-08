@@ -2,7 +2,7 @@
 
 Hello world! Hello world! Hello world!
 
-![Hello world!](https://via.placeholder.com/500x460/000000/FFFFFF/?text=Hello+World!)
+![Hello world!](https://placehold.co/500x460/000000/FFFFFF?font=source-sans-pro&text=Hello+World!)
 
 ---
 

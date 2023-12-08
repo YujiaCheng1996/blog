@@ -19,13 +19,12 @@ Astro Cactus is a simple opinionated starter built with the Astro framework. Use
    - [Frontmatter](#frontmatter)
 8. [Pagefind search](#pagefind-search)
 9. [Analytics](#analytics)
-10. [View Transitions](#view-transitions)
-11. [Deploy](#deploy)
-12. [Acknowledgment](#acknowledgment)
+10. [Deploy](#deploy)
+11. [Acknowledgment](#acknowledgment)
 
 ## Key Features
 
-- Astro v3 Fast 🚀
+- Astro v4 Fast 🚀
 - TailwindCSS Utility classes
 - Accessible, semantic HTML markup
 - Responsive & SEO-friendly
@@ -124,9 +123,9 @@ Search results only includes blog posts. If you would like to include other/all 
 
 It also allows you to filter posts by tags added in the frontmatter of blog posts. If you would rather remove this, remove the data attribute `data-pagefind-filter="tag"` from the link in `src/components/blog/Hero.astro`.
 
-Note the current build will display a warning in the console, you can follow this issue [here](https://github.com/CloudCannon/pagefind/issues/290)
-
 If you would rather not include this integration, simply remove the component `src/components/Search.astro`, and uninstall both `@pagefind/default-ui` & `pagefind` from package.json. You will also need to remove the postbuild script from here as well.
+
+You can reduce the initial css payload of your css, as demonstrated [here](https://github.com/chrismwilliams/astro-theme-cactus/pull/145#issue-1943779868), by lazy loading the web components styles.
 
 ## Analytics
 
@@ -155,10 +154,6 @@ import { GoogleAnalytics } from "astro-google-analytics";
 	<GoogleAnalytics id="G-XXXXXXXXXX" />
 </head>
 ```
-
-## View Transitions
-
-This theme implements optional support for view transitions. Visit `src/site.config.ts` and set `includeViewTransitions` to `true` to include it. View the implementation in `src/layouts/Base.astro`.
 
 ## Deploy
 
