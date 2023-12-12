@@ -1,6 +1,6 @@
 {
 	"name": "astro-cactus",
-	"version": "3.6.0",
+	"version": "3.6.1",
 	"private": false,
 	"scripts": {
 		"dev": "astro dev",
@@ -8,7 +8,7 @@
 		"build": "astro build",
 		"postbuild": "pagefind --site dist",
 		"preview": "astro preview",
-		"format": "prettier -w --cache .",
+		"format": "prettier -w --cache . && prettier -w --cache **/*.astro",
 		"check": "astro check"
 	},
 	"dependencies": {
@@ -24,14 +24,14 @@
 		"sharp": "^0.33.0"
 	},
 	"devDependencies": {
-		"@astrojs/check": "^0.3.1",
+		"@astrojs/check": "^0.3.2",
 		"@pagefind/default-ui": "^1.0.4",
 		"@resvg/resvg-js": "^2.6.0",
 		"@tailwindcss/aspect-ratio": "^0.4.2",
 		"@tailwindcss/typography": "^0.5.10",
 		"@types/eslint": "^8.44.8",
-		"@typescript-eslint/eslint-plugin": "^6.13.2",
-		"@typescript-eslint/parser": "^6.13.2",
+		"@typescript-eslint/eslint-plugin": "^6.14.0",
+		"@typescript-eslint/parser": "^6.14.0",
 		"astro-eslint-parser": "^0.16.0",
 		"autoprefixer": "^10.4.16",
 		"eslint": "^8.55.0",
@@ -46,7 +46,7 @@
 		"postcss": "^8.4.32",
 		"postcss-html": "^1.5.0",
 		"postcss-import": "^15.1.0",
-		"prettier": "^3.1.0",
+		"prettier": "^3.1.1",
 		"prettier-plugin-astro": "0.12.2",
 		"prettier-plugin-tailwindcss": "^0.5.9",
 		"reading-time": "^1.5.0",

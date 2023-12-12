@@ -4,7 +4,7 @@ const dateFormat = new Intl.DateTimeFormat(siteConfig.date.locale, siteConfig.da
 
 export function getFormattedDate(
 	date?: string | number | Date,
-	options?: Intl.DateTimeFormatOptions
+	options?: Intl.DateTimeFormatOptions,
 ) {
 	if (typeof options !== "undefined") {
 		return (date ? new Date(date) : new Date()).toLocaleDateString(siteConfig.date.locale, {
@@ -12,6 +12,6 @@ export function getFormattedDate(
 			...options,
 		});
 	} else {
-		return dateFormat.format((date ? new Date(date) : new Date()));
+		return dateFormat.format(date ? new Date(date) : new Date());
 	}
 }
