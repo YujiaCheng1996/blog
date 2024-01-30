@@ -76,10 +76,7 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 						aria-label={`查看更多包含 ${tag} 的博客`}
 						href={`/tags/${tag}/`}
 						data-pagefind-filter="tag"
-					>
-						{tag}
-					</a>
-					{i < (data.tags ?? []).length - 1 && ", "}
+					>{tag}</a>{i < (data.tags ?? []).length - 1 && ", "}
 				</>
 			))}
 		</div>

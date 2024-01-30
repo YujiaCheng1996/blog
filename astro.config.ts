@@ -6,6 +6,9 @@ import sitemap from "@astrojs/sitemap";
 import remarkUnwrapImages from "remark-unwrap-images";
 import rehypeExternalLinks from "rehype-external-links";
 import { remarkReadingTime } from "./src/utils/remark-reading-time";
+import icon from "astro-icon";
+import expressiveCode from "astro-expressive-code";
+import { expressiveCodeOptions } from "./src/site.config";
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,20 +16,28 @@ export default defineConfig({
 	markdown: {
 		remarkPlugins: [remarkUnwrapImages, remarkReadingTime],
 		rehypePlugins: [
-			[rehypeExternalLinks, { target: "_blank", rel: ["nofollow, noopener, noreferrer"] }],
+			[
+				rehypeExternalLinks,
+				{
+					target: "_blank",
+					rel: ["nofollow, noopener, noreferrer"],
+				},
+			],
 		],
-		remarkRehype: { footnoteLabelProperties: { className: [""] } },
-		shikiConfig: {
-			theme: "dracula",
-			wrap: true,
+		remarkRehype: {
+			footnoteLabelProperties: {
+				className: [""],
+			},
 		},
 	},
 	integrations: [
-		mdx({}),
+		expressiveCode(expressiveCodeOptions),
+		icon(),
 		tailwind({
 			applyBaseStyles: false,
 		}),
 		sitemap(),
+		mdx(),
 	],
 	image: {
 		domains: ["webmention.io"],
@@ -34,7 +45,7 @@ export default defineConfig({
 	// https://docs.astro.build/en/guides/prefetch/
 	prefetch: true,
 	vite: {
-		plugins: [rawFonts([".ttf"])],
+		plugins: [rawFonts([".ttf", ".woff"])],
 		optimizeDeps: {
 			exclude: ["@resvg/resvg-js"],
 		},
