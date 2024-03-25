@@ -13,7 +13,7 @@ export async function getAllPosts() {
 		}),
 	})
 		.map(([collection, posts]) => posts.map((post) => ({ ...post, collection })))
-		.flat();
+		.flat() as Array<CollectionEntry<"post">>;
 }
 
 export function sortMDByDate(posts: Array<CollectionEntry<"post">>) {

@@ -1,11 +1,13 @@
 ---
 import type { SiteMeta } from "@/types";
+
 import { siteConfig } from "@/site-config";
+
 import "../styles/global.css";
 
 type Props = SiteMeta;
 
-const { title, description, articleDate } = Astro.props;
+const { articleDate, description, title } = Astro.props;
 
 const titleSeparator = "•";
 const siteTitle = `${title} ${titleSeparator} ${siteConfig.title}`;
@@ -13,40 +15,50 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
+<meta content="IE=edge" http-equiv="X-UA-Compatible" />
 <title>{siteTitle}</title>
 
 {/* Icons / Favicon */}
-<link rel="icon" href="/favicon.ico" sizes="any" />
-<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-<link rel="manifest" href="/manifest.webmanifest" />
-<link rel="canonical" href={canonicalURL} />
+<link href="/favicon.ico" rel="icon" sizes="any" />
+<link href="/icon.svg" rel="icon" type="image/svg+xml" />
+<link href="/apple-touch-icon.png" rel="apple-touch-icon" />
+<link href="/manifest.webmanifest" rel="manifest" />
+<link href={canonicalURL} rel="canonical" />
 
 {/* Primary Meta Tags */}
-<meta name="title" content={siteTitle} />
-<meta name="description" content={description} />
-<meta name="author" content={siteConfig.author} />
+<meta content={siteTitle} name="title" />
+<meta content={description} name="description" />
+<meta content={siteConfig.author} name="author" />
 
 {/* Theme Colour */}
-<meta name="theme-color" content="" />
+<meta content="" name="theme-color" />
+
+{
+	articleDate && (
+		<>
+			<meta content={siteConfig.author} property="article:author" />
+			<meta content={articleDate} property="article:published_time" />
+		</>
+	)
+}
 
 {/* Sitemap */}
-<link rel="sitemap" href="/sitemap-index.xml" />
+<link href="/sitemap-index.xml" rel="sitemap" />
 
 {/* RSS auto-discovery */}
-<link rel="alternate" type="application/rss+xml" title={siteConfig.title} href="/rss.xml" />
+<link href="/rss.xml" rel="alternate" title={siteConfig.title} type="application/rss+xml" />
 
 {/* Webmentions */}
 {
 	siteConfig.webmentions && (
 		<>
-			<link rel="webmention" href={siteConfig.webmentions.link} />
+			<link href={siteConfig.webmentions.link} rel="webmention" />
 			{siteConfig.webmentions.pingback && (
-				<link rel="pingback" href={siteConfig.webmentions.pingback} />
+				<link href={siteConfig.webmentions.pingback} rel="pingback" />
 			)}
 		</>
 	)
 }
 
-<meta name="generator" content={Astro.generator} />
+<meta content={Astro.generator} name="generator" />

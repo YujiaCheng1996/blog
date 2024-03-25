@@ -1,47 +1,47 @@
 ---
-import PageLayout from "@/layouts/Base";
-import PostPreview from "@/components/blog/PostPreview";
-import { getAllPosts, sortMDByDate } from "@/utils";
+import PostPreview from "@/components/blog/PostPreview.astro";
+import PageLayout from "@/layouts/Base.astro";
+import { getAllPosts, sortMDByDate } from "@/data/post";
 
 const MAX_POSTS = 10;
 const allPosts = await getAllPosts();
 const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS);
 
-const cactusTech: Array<{ title: string; desc: string; href: string }> = [
+const cactusTech: { desc: string; href: string; title: string }[] = [
 	{
-		title: "Astro",
 		desc: "Build fast websites, faster.",
 		href: "https://astro.build",
+		title: "Astro",
 	},
 	{
-		title: "Tailwind CSS",
 		desc: "Rapidly build modern websites without ever leaving your HTML.",
 		href: "https://tailwindcss.com",
+		title: "Tailwind CSS",
 	},
 	{
-		title: "Markdown",
 		desc: "Simple and easy-to-use markup language.",
 		href: "https://www.markdownguide.org/",
+		title: "Markdown",
 	},
 	{
-		title: "MDX",
 		desc: "Markdown for the component era.",
 		href: "https://mdxjs.com/",
+		title: "MDX",
 	},
 	{
-		title: "Pagefind",
 		desc: "A fully static search library.",
 		href: "https://pagefind.app/",
+		title: "Pagefind",
 	},
 	{
-		title: "Astro Icon",
 		desc: "An easy to use Icon component for Astro.",
 		href: "https://github.com/natemoo-re/astro-icon#readme",
+		title: "Astro Icon",
 	},
 	{
-		title: "Expressive Code",
 		desc: "Highly customisable source code & syntax highlighter",
 		href: "https://expressive-code.com/",
+		title: "Expressive Code",
 	},
 ];
 ---
@@ -51,7 +51,7 @@ const cactusTech: Array<{ title: string; desc: string; href: string }> = [
 		<h1 class="title mb-6">Hello World!</h1>
 		<p class="mb-4">Hello World! Hello World! Hello World!</p>
 	</section>
-	<section aria-label="Blog post list" class="mt-16">
+	<section aria-label="博文列表" class="mt-16">
 		<h2 class="title mb-4 text-xl">博文列表</h2>
 		<ul class="space-y-4">
 			{
@@ -67,11 +67,11 @@ const cactusTech: Array<{ title: string; desc: string; href: string }> = [
 		<h2 class="title mb-4 text-xl">技术栈</h2>
 		<dl class="space-y-4">
 			{
-				cactusTech.map(({ href, title, desc }) => (
+				cactusTech.map(({ desc, href, title }) => (
 					<div class="flex flex-col gap-2 md:flex-row">
 						<dt>
 							<span class="flex">
-								<a href={href} target="_blank" rel="noopener noreferrer" class="cactus-link">
+								<a class="cactus-link" href={href} rel="noopener noreferrer" target="_blank">
 									{title}
 								</a>
 								:
