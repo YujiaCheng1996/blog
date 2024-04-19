@@ -1,9 +1,9 @@
 ---
-title: "测试草稿"
 description: "这篇博客仅用于测试草稿功能"
+draft: true
 publishDate: "10 Sept 2023"
 tags: ["test"]
-draft: true
+title: "测试草稿"
 ---
 
 这篇博客仅用于测试草稿功能。
