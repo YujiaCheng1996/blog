@@ -1,6 +1,6 @@
-import { siteConfig } from "@/site-config";
 import { type CollectionEntry, getCollection } from "astro:content";
 const currentDate = new Date();
+import { siteConfig } from "@/site-config";
 
 /** filter out draft posts based on the environment */
 export async function getAllPosts() {

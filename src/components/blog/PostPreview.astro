@@ -1,9 +1,7 @@
 ---
-import type { HTMLTag, Polymorphic } from "astro/types";
 import type { CollectionEntry } from "astro:content";
-
 import { getPostSortDate } from "@/data/post";
-
+import type { HTMLTag, Polymorphic } from "astro/types";
 import FormattedDate from "../FormattedDate.astro";
 import { getTitle, getDescription } from "@/data/post";
 
@@ -23,8 +21,4 @@ const postDate = getPostSortDate(post);
 		{post.data.title ?? getTitle(post.body)}
 	</a>
 </Tag>
-{
-	withDesc && (
-		<q class="line-clamp-3 block italic">{post.data.description ?? getDescription(post.body)}</q>
-	)
-}
+{withDesc && <q class="line-clamp-3 italic">{post.data.description ?? getDescription(post.body)}</q>}
