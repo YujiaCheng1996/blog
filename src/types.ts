@@ -7,7 +7,6 @@ export interface SiteConfig {
 	description: string;
 	lang: string;
 	ogLocale: string;
-	sortPostsByUpdatedDate: boolean;
 	title: string;
 }
 
@@ -20,7 +19,6 @@ export interface PaginationLink {
 export interface SiteMeta {
 	articleDate?: string | undefined;
 	description?: string;
-	ogImage?: string | undefined;
 	title: string;
 }
 

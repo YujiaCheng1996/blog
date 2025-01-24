@@ -19,9 +19,7 @@ export const siteConfig: SiteConfig = {
 	lang: "zh-Hans-CN",
 	// Meta property, found in src/components/BaseHead.astro L:42
 	ogLocale: "zh-Hans-CN",
-	// Option to sort posts by updatedDate if set to true (if property exists). Default (false) will sort by publishDate
-	sortPostsByUpdatedDate: false,
-	// Meta property used to construct the meta title property, found in src/components/BaseHead.astro L:11
+	// Used to construct the meta title property found in src/components/BaseHead.astro L:11, and webmanifest name found in astro.config.ts L:42
 	title: "个人博客",
 };
 
@@ -38,6 +36,10 @@ export const menuLinks: { path: string; title: string }[] = [
 	{
 		path: "/post/",
 		title: "博客",
+	},
+	{
+		path: "/notes/",
+		title: "笔记",
 	},
 ];
 

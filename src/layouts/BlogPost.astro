@@ -1,5 +1,5 @@
 ---
-import type { CollectionEntry } from "astro:content";
+import { type CollectionEntry, render } from "astro:content";
 
 import { getTitle, getDescription } from "@/data/post";
 import Masthead from "@/components/blog/Masthead.astro";
@@ -12,20 +12,16 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const {
-	data: { description, publishDate, title, updatedDate },
-	body,
-} = post;
-const articleDate =
-	updatedDate?.toISOString() ?? publishDate?.toISOString() ?? new Date().toISOString();
-const { headings } = await post.render();
+const { title, description, updatedDate, publishDate } = post.data;
+const articleDate = updatedDate?.toISOString() ?? publishDate.toISOString();
+const { headings } = await render(post);
 ---
 
 <BaseLayout
 	meta={{
 		articleDate,
-		description: description ?? getDescription(body),
-		title: title ?? getTitle(body),
+		description,
+		title,
 	}}
 >
 	<div class="gap-x-10 lg:flex lg:items-start">
@@ -40,8 +36,8 @@ const { headings } = await post.render();
 		</article>
 	</div>
 	<button
-		aria-label="回到顶部"
-		class="z-90 fixed bottom-8 end-4 flex h-10 w-10 translate-y-28 items-center justify-center rounded-full border-2 border-transparent bg-zinc-200 text-3xl opacity-0 transition-all duration-300 hover:border-zinc-400 data-[show=true]:translate-y-0 data-[show=true]:opacity-100 dark:bg-zinc-700 sm:end-8 sm:h-12 sm:w-12"
+		aria-label="Back to Top"
+		class="z-90 fixed bottom-8 end-4 flex h-10 w-10 translate-y-28 items-center justify-center rounded-full border-2 border-transparent bg-zinc-200 text-3xl opacity-0 transition-all duration-300 hover:border-link data-[show=true]:translate-y-0 data-[show=true]:opacity-100 dark:bg-zinc-700 sm:end-8 sm:h-12 sm:w-12"
 		data-show="false"
 		id="to-top-btn"
 		><svg

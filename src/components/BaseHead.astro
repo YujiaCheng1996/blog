@@ -1,7 +1,8 @@
 ---
-import { siteConfig } from "@/site-config";
+import { WEBMENTION_PINGBACK, WEBMENTION_URL } from "astro:env/client";
+import { siteConfig } from "@/site.config";
 import type { SiteMeta } from "@/types";
-import "../styles/global.css";
+import "@/styles/global.css";
 
 type Props = SiteMeta;
 
@@ -23,7 +24,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 		<>
 			{/* Favicon & Apple Icon */}
 			<link rel="icon" href="/favicon-32x32.png" type="image/png" />
-			<link href="icons/apple-touch-icon.png" rel="apple-touch-icon" />
+			<link href="/icons/apple-touch-icon.png" rel="apple-touch-icon" />
 			{/* Manifest */}
 			<link href="/manifest.webmanifest" rel="manifest" />
 		</>
@@ -49,11 +50,5 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 		</>
 	)
 }
-
-{/* Sitemap */}
-<link href="/sitemap-index.xml" rel="sitemap" />
-
-{/* RSS auto-discovery */}
-<link href="/rss.xml" rel="alternate" title={siteConfig.title} type="application/rss+xml" />
 
 <meta content={Astro.generator} name="generator" />
