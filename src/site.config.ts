@@ -21,6 +21,8 @@ export const siteConfig: SiteConfig = {
 	ogLocale: "zh-Hans-CN",
 	// Used to construct the meta title property found in src/components/BaseHead.astro L:11, and webmanifest name found in astro.config.ts L:42
 	title: "个人博客",
+	// ! Please remember to replace the following site property with your own domain, used in astro.config.ts
+	url: "https://blog.chyj.tech/",
 };
 
 // Used to generate links in both the Header & Footer.
@@ -48,7 +50,7 @@ export const expressiveCodeOptions: AstroExpressiveCodeOptions = {
 	styleOverrides: {
 		borderRadius: "4px",
 		codeFontFamily:
-			'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;',
+			'"等距更纱黑体 Slab SC Nerd Font", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
 		codeFontSize: "0.875rem",
 		codeLineHeight: "1.7142857rem",
 		codePaddingInline: "1rem",

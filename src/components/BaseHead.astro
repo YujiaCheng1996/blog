@@ -1,5 +1,4 @@
 ---
-import { WEBMENTION_PINGBACK, WEBMENTION_URL } from "astro:env/client";
 import { siteConfig } from "@/site.config";
 import type { SiteMeta } from "@/types";
 import "@/styles/global.css";
@@ -38,9 +37,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 <meta content={siteTitle} name="title" />
 <meta content={description} name="description" />
 <meta content={siteConfig.author} name="author" />
-
-{/* Theme Colour */}
-<meta content="" name="theme-color" />
 
 {
 	articleDate && (

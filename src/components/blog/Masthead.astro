@@ -6,10 +6,12 @@ import FormattedDate from "@/components/FormattedDate.astro";
 
 interface Props {
 	content: CollectionEntry<"post">;
+	readingTime: string;
 }
 
 const {
 	content: { data, body },
+	readingTime,
 } = Astro.props;
 
 const dateTimeOptions: Intl.DateTimeFormatOptions = {
@@ -19,7 +21,7 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 
 {
 	data.coverImage && (
-		<div class="mb-6 aspect-[16/9]">
+		<div class="mb-6 aspect-video">
 			<Image
 				alt={data.coverImage.alt}
 				class="object-cover"
@@ -38,12 +40,11 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
 	<p class="font-semibold">
 		<FormattedDate date={data.publishDate} dateTimeOptions={dateTimeOptions} /> /{" "}
-		{/* @ts-ignore:next-line. TODO: add reading time to collection schema? */}
-		{data.readingTime}
+		{readingTime}
 	</p>
 	{
 		data.updatedDate && (
-			<span class="rounded-lg bg-quote/5 px-2 py-1 text-quote">
+			<span class="bg-quote/5 text-quote rounded-lg px-2 py-1">
 				上次更新:
 				<FormattedDate class="ms-1" date={data.updatedDate} dateTimeOptions={dateTimeOptions} />
 			</span>
@@ -74,8 +75,7 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 				<>
 					{/* prettier-ignore */}
 					<span class="contents">
-						<a aria-label={`查看更多包含 ${tag} 的博客`} class="cactus-link inline-block before:content-['#']" data-pagefind-filter="tag" href={`/tags/${tag}/`}>{tag}
-						</a>{i < data.tags.length - 1 && ", "}
+						<a class="cactus-link inline-block before:content-['#']" data-pagefind-filter={`tag:${tag}`} href={`/tags/${tag}/`}><span class="sr-only">查看更多包含&nbsp;</span>{tag}<span class="sr-only">&nbsp;的博客</span></a>{i < data.tags.length - 1 && ", "}
 					</span>
 				</>
 			))}
