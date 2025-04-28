@@ -19,7 +19,12 @@ export const siteConfig: SiteConfig = {
 	lang: "zh-Hans-CN",
 	// Meta property, found in src/components/BaseHead.astro L:42
 	ogLocale: "zh-Hans-CN",
-	// Used to construct the meta title property found in src/components/BaseHead.astro L:11, and webmanifest name found in astro.config.ts L:42
+	/* 
+		- Used to construct the meta title property found in src/components/BaseHead.astro L:11 
+		- The webmanifest name found in astro.config.ts L:42
+		- The link value found in src/components/layout/Header.astro L:35
+		- In the footer found in src/components/layout/Footer.astro L:12
+	*/
 	title: "个人博客",
 	// ! Please remember to replace the following site property with your own domain, used in astro.config.ts
 	url: "https://blog.chyj.tech/",
