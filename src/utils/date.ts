@@ -6,10 +6,10 @@ export function getFormattedDate(
 	options?: Intl.DateTimeFormatOptions,
 ): string {
 	if (date === undefined) {
-		return "Invalid Date";
+		return "无效日期";
 	}
 
-	return new Intl.DateTimeFormat(siteConfig.date.locale, {
+	return new Intl.DateTimeFormat(siteConfig.lang, {
 		...(siteConfig.date.options as Intl.DateTimeFormatOptions),
 		...options,
 	}).format(date);

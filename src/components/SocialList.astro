@@ -27,20 +27,13 @@ const socialLinks: {
 <div class="flex flex-wrap items-end gap-x-2">
 	<p>联系方式</p>
 	<ul class="flex flex-1 items-center gap-x-2 sm:flex-initial">
-		{
-			socialLinks.map(({ friendlyName, link, name }) => (
-				<li class="flex">
-					<a
-						class="hover:text-link inline-block"
-						href={link}
-						rel="noreferrer"
-						target="_blank"
-					>
-						<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name={name} />
-						<span class="sr-only">{friendlyName}</span>
-					</a>
-				</li>
-			))
-		}
+		{socialLinks.map(({ friendlyName, link, name }) => (
+			<li class="flex">
+				<a class="hover:text-link inline-block" href={link} rel="noreferrer" target="_blank">
+					<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name={name} />
+					<span class="sr-only">{friendlyName}</span>
+				</a>
+			</li>
+		))}
 	</ul>
 </div>

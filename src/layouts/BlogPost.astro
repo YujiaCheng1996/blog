@@ -1,14 +1,16 @@
 ---
 import { type CollectionEntry, render } from "astro:content";
-
-import { getTitle, getDescription } from "@/data/post";
+import type { SetNonNullableDeep, SetRequiredDeep } from "type-fest";
 import Masthead from "@/components/blog/Masthead.astro";
 import TOC from "@/components/blog/TOC.astro";
 
 import BaseLayout from "./Base.astro";
 
 interface Props {
-	post: CollectionEntry<"post">;
+	post: SetRequiredDeep<
+		SetNonNullableDeep<CollectionEntry<"post">, "data.description">,
+		"data.description"
+	>;
 }
 
 const { post } = Astro.props;
@@ -21,17 +23,17 @@ const readingTime: string = remarkPluginFrontmatter.readingTime;
 <BaseLayout
 	meta={{
 		articleDate,
-		description: description ?? getDescription(post.body!),
-		title: title ?? getTitle(post.body!),
+		description,
+		title,
 	}}
 >
 	<article class="grow break-words" data-pagefind-body>
-		<div id="blog-hero" class="mb-12"><Masthead content={post} readingTime={readingTime} /></div>
-		<div class="flex flex-col gap-10 lg:flex-row lg:items-start">
+		<div id="blog-hero" class="mb-12">
+			<Masthead content={post} readingTime={readingTime} />
+		</div>
+		<div class="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
 			{!!headings.length && <TOC headings={headings} />}
-			<div
-				class="prose prose-sm prose-headings:font-semibold prose-headings:text-accent-2 prose-headings:before:absolute prose-headings:before:-ms-4 prose-headings:before:text-gray-600 prose-headings:hover:before:text-accent sm:prose-headings:before:content-['#'] sm:prose-th:before:content-none"
-			>
+			<div class="prose prose-sm prose-headings:font-semibold prose-headings:text-accent-2 prose-headings:before:absolute prose-headings:before:-ms-4 prose-headings:before:text-muted prose-headings:hover:before:text-accent sm:prose-headings:before:content-['#'] sm:prose-th:before:content-none">
 				<slot />
 			</div>
 		</div>

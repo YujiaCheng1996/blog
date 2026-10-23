@@ -1,10 +1,10 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
-import Pagination from "@/components/Paginator.astro";
+import type { GetStaticPaths, Page } from "astro";
 import Note from "@/components/note/Note.astro";
+import Pagination from "@/components/Paginator.astro";
 import PageLayout from "@/layouts/Base.astro";
 import { collectionDateSort } from "@/utils/date";
-import type { GetStaticPaths, Page } from "astro";
 
 export const getStaticPaths = (async ({ paginate }) => {
 	const MAX_NOTES_PER_PAGE = 10;
@@ -42,17 +42,13 @@ const paginationProps = {
 
 <PageLayout meta={meta}>
 	<section>
-		<h1 class="title mb-6 flex items-center gap-3">
-			笔记
-		</h1>
+		<h1 class="title mb-12 flex items-center gap-3">笔记</h1>
 		<ul class="mt-6 space-y-8 text-start">
-			{
-				page.data.map((note) => (
-					<li class="">
-						<Note note={note} as="h2" isPreview />
-					</li>
-				))
-			}
+			{page.data.map((note) => (
+				<li class="">
+					<Note note={note} as="h2" isPreview />
+				</li>
+			))}
 		</ul>
 		<Pagination {...paginationProps} />
 	</section>

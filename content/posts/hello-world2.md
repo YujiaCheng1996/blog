@@ -13,13 +13,11 @@ Hello world! Hello world! Hello world!
 ---
 
 无序列表:
-
 - Item number 1
 - Item number 2
 - Item number 3
 
 有序列表:
-
 1. Item number 1
 2. Item number 2
 3. Item number 3

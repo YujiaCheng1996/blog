@@ -1,28 +1,28 @@
 import fs from "node:fs";
-// Rehype plugins
-import { rehypeHeadingIds } from "@astrojs/markdown-remark";
+import { satteri, satteriHeadingIdsPlugin } from "@astrojs/markdown-satteri";
 import mdx from "@astrojs/mdx";
 import tailwind from "@tailwindcss/vite";
-import { defineConfig, passthroughImageService, envField } from "astro/config";
+import { defineConfig, envField, passthroughImageService } from "astro/config";
 import expressiveCode from "astro-expressive-code";
 import icon from "astro-icon";
 import webmanifest from "astro-webmanifest";
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import rehypeExternalLinks from "rehype-external-links";
-import rehypeUnwrapImages from "rehype-unwrap-images";
-// Remark plugins
-import remarkDirective from "remark-directive"; /* Handle ::: directives as nodes */
-import { remarkAdmonitions } from "./src/plugins/remark-admonitions"; /* Add admonitions */
-import { remarkGithubCard } from "./src/plugins/remark-github-card";
-import { remarkReadingTime } from "./src/plugins/remark-reading-time";
+import { satteriAdmonitionsPlugin } from "./src/plugins/admonitions";
+import { satteriGithubCardPlugin } from "./src/plugins/github-cards";
+import {
+	satteriAutolinkHeadingsPlugin,
+	satteriExternalLinksPlugin,
+	satteriFootnoteLabelPlugin,
+	satteriReadingTimePlugin,
+	satteriUnwrapImagesPlugin,
+} from "./src/plugins/satteri";
 import { expressiveCodeOptions, siteConfig } from "./src/site.config";
 
 // https://astro.build/config
 export default defineConfig({
 	site: siteConfig.url,
 	image: {
-    service: passthroughImageService()
-  },
+		service: passthroughImageService(),
+	},
 	integrations: [
 		expressiveCode(expressiveCodeOptions),
 		icon(),
@@ -30,7 +30,6 @@ export default defineConfig({
 		webmanifest({
 			// See: https://github.com/alextim/astro-lib/blob/main/packages/astro-webmanifest/README.md
 			name: siteConfig.title,
-			// short_name: "Astro_Cactus", // optional
 			description: siteConfig.description,
 			lang: siteConfig.lang,
 			icon: "public/icon.svg", // the source for generating favicon & icons
@@ -63,31 +62,23 @@ export default defineConfig({
 		}),
 	],
 	markdown: {
-		rehypePlugins: [
-			rehypeHeadingIds,
-			[rehypeAutolinkHeadings, { behavior: "wrap", properties: { className: ["not-prose"] } }],
-			[
-				rehypeExternalLinks,
-				{
-					rel: ["noreferrer", "noopener"],
-					target: "_blank",
-				},
+		processor: satteri({
+			features: { directive: true },
+			mdastPlugins: [
+				satteriUnwrapImagesPlugin(),
+				satteriReadingTimePlugin(),
+				satteriGithubCardPlugin(),
+				satteriAdmonitionsPlugin(),
 			],
-			rehypeUnwrapImages,
-		],
-		remarkPlugins: [remarkReadingTime, remarkDirective, remarkGithubCard, remarkAdmonitions],
-		remarkRehype: {
-			footnoteLabelProperties: {
-				className: [""],
-			},
-		},
+			hastPlugins: [
+				satteriHeadingIdsPlugin(),
+				satteriAutolinkHeadingsPlugin(),
+				satteriFootnoteLabelPlugin(),
+				satteriExternalLinksPlugin(),
+			],
+		}),
 	},
-	// https://docs.astro.build/en/guides/prefetch/
-	prefetch: true,
 	vite: {
-		optimizeDeps: {
-			exclude: ["@resvg/resvg-js"],
-		},
 		plugins: [tailwind(), rawFonts([".ttf", ".woff"])],
 	},
 	env: {
@@ -110,6 +101,7 @@ function rawFonts(ext: string[]) {
 				return {
 					code: `export default ${JSON.stringify(buffer)}`,
 					map: null,
+					moduleType: "js",
 				};
 			}
 		},

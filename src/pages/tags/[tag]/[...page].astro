@@ -1,12 +1,12 @@
 ---
 import { render } from "astro:content";
-import Pagination from "@/components/Paginator.astro";
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import { Icon } from "astro-icon/components";
 import PostPreview from "@/components/blog/PostPreview.astro";
+import Pagination from "@/components/Paginator.astro";
 import { getAllPosts, getTagMeta, getUniqueTags } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
 import { collectionDateSort } from "@/utils/date";
-import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
-import { Icon } from "astro-icon/components";
 
 export const getStaticPaths = (async ({ paginate }) => {
 	const allPosts = await getAllPosts();
@@ -38,13 +38,13 @@ const meta = {
 const paginationProps = {
 	...(page.url.prev && {
 		prevUrl: {
-			text: `← 上一个标签`,
+			text: "← 上一个标签",
 			url: page.url.prev,
 		},
 	}),
 	...(page.url.next && {
 		nextUrl: {
-			text: `下一个标签 →`,
+			text: "下一个标签 →",
 			url: page.url.next,
 		},
 	}),
@@ -55,10 +55,15 @@ const paginationProps = {
 	<nav class="mb-8" aria-label="Breadcrumbs">
 		<ul class="flex items-center">
 			<li class="flex items-center">
-				<a class="text-accent" href="/tags/">全部标签</a>
+				<a class="text-accent" href="/tags/">
+					全部标签
+				</a>
 				<Icon aria-hidden="true" name="mdi:chevron-right" class="mx-1.5" />
 			</li>
-			<li aria-current="page" class=""><span aria-hidden="true">#</span>{tag}</li>
+			<li aria-current="page" class="">
+				<span aria-hidden="true">#</span>
+				{tag}
+			</li>
 		</ul>
 	</nav>
 	<h1 class="title capitalize">{tagMeta?.data.title ?? `关于 #${tag} 的博文`}</h1>
@@ -66,14 +71,12 @@ const paginationProps = {
 		{tagMeta?.data.description && <p>{tagMeta.data.description}</p>}
 		{TagContent && <TagContent />}
 	</div>
-	<ul class="space-y-6">
-		{
-			page.data.map((p) => (
-				<li class="grid gap-2 sm:grid-cols-[auto_1fr]">
-					<PostPreview as="h2" post={p} />
-				</li>
-			))
-		}
+	<ul class="space-y-4">
+		{page.data.map((p) => (
+			<li class="grid gap-1 sm:grid-cols-[auto_1fr]">
+				<PostPreview as="h2" post={p} />
+			</li>
+		))}
 	</ul>
 	<Pagination {...paginationProps} />
 </PageLayout>

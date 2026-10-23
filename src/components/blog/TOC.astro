@@ -1,6 +1,6 @@
 ---
-import { generateToc } from "@/utils/generateToc";
 import type { MarkdownHeading } from "astro";
+import { generateToc } from "@/utils/generateToc";
 import TOCHeading from "./TOCHeading.astro";
 
 interface Props {
@@ -16,7 +16,9 @@ const toc = generateToc(headings);
 	<summary class="title hover:marker:text-accent cursor-pointer text-lg">章节</summary>
 	<nav class="ms-4 lg:w-full">
 		<ol class="mt-4">
-			{toc.map((heading) => <TOCHeading heading={heading} />)}
+			{toc.map((heading) => (
+				<TOCHeading heading={heading} />
+			))}
 		</ol>
 	</nav>
 </details>

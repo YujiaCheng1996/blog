@@ -1,9 +1,52 @@
 import { type CollectionEntry, getCollection } from "astro:content";
+import { fromMarkdown as mdastFromMarkdown } from "mdast-util-from-markdown";
+import { toString as mdastToString } from "mdast-util-to-string";
+import type { SetNonNullableDeep, SetRequiredDeep } from "type-fest";
 
 /** filter out draft posts based on the environment */
-export async function getAllPosts(): Promise<CollectionEntry<"post">[]> {
-	return await getCollection("post", ({ data }) => {
-		return import.meta.env.PROD ? !data.draft : true;
+export async function getAllPosts(): Promise<
+	SetRequiredDeep<
+		SetNonNullableDeep<CollectionEntry<"post">, "data.description">,
+		"data.description"
+	>[]
+> {
+	return (
+		await getCollection("post", ({ data }) => {
+			return import.meta.env.PROD ? !data.draft : true;
+		})
+	).map((post) => {
+		let title = post.data.title ?? "";
+		if (!title) {
+			let description = post.data.description ?? "";
+			if (post.body) {
+				const lines = post.body.split("\n");
+				for (const line of lines) {
+					const trimedLine = mdastToString(mdastFromMarkdown(line), {
+						includeImageAlt: false,
+						includeHtml: false,
+					}).trim();
+					if (trimedLine.length) {
+						if (!title) {
+							title += trimedLine.substring(0, 60);
+						}
+						if (post.data.description) {
+							break;
+						}
+						description += `${trimedLine} `;
+						if (description.length >= 150) {
+							description = description.substring(0, 150);
+							break;
+						}
+					}
+				}
+			}
+			post.data.title = title || "无标题";
+			post.data.description = description;
+		}
+		return post as SetRequiredDeep<
+			SetNonNullableDeep<CollectionEntry<"post">, "data.description">,
+			"data.description"
+		>;
 	});
 }
 
@@ -19,14 +62,7 @@ export async function getTagMeta(tag: string): Promise<CollectionEntry<"tag"> | 
  *  Note: This function doesn't filter draft posts, pass it the result of getAllPosts above to do so.
  */
 export function groupPostsByYear(posts: CollectionEntry<"post">[]) {
-	return posts.reduce<Record<string, CollectionEntry<"post">[]>>((acc, post) => {
-		const year = post.data.publishDate.getFullYear();
-		if (!acc[year]) {
-			acc[year] = [];
-		}
-		acc[year]?.push(post);
-		return acc;
-	}, {});
+	return Object.groupBy(posts, (post) => post.data.publishDate.getFullYear().toString());
 }
 
 /** returns all tags created from posts (inc duplicate tags)
@@ -53,33 +89,4 @@ export function getUniqueTagsWithCount(posts: CollectionEntry<"post">[]): [strin
 			new Map<string, number>(),
 		),
 	].sort((a, b) => b[1] - a[1]);
-}
-
-export function getTitle(body: string): string {
-	const newBody = body.replaceAll(/[#]/g, "");
-	const lines = newBody.split(/[\n]/);
-	for (const line of lines) {
-		if (line?.length) {
-			return line.substring(0, 50);
-		}
-	}
-	return "无标题";
-}
-
-export function getDescription(body: string): string {
-	const newBody = body
-		.replaceAll(/([#-]+ *)/g, "")
-		.replaceAll(/(!*\[[^\]]*\])/g, " ")
-		.replaceAll(/(!*\([^)]*\))/g, "");
-	const lines = newBody.split(/[\n]/);
-	let result = "";
-	for (const line of lines) {
-		if (line?.length) {
-			result += line + " ";
-			if (result.length >= 150) {
-				return result.substring(0, 150);
-			}
-		}
-	}
-	return "无标题";
 }
